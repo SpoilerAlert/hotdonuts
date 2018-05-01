@@ -1,0 +1,59 @@
+<html ng-app="HotDonuts">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="hotdonuts.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-93497506-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-3629499199063739",
+        enable_page_level_ads: true
+      });
+    </script>
+    <script type="text/javascript" src="http://swappy.test/companies/260047711/5c49fd2f96983631420d/12/swap.js"></script>
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="skeleton.css">
+    <link rel="stylesheet" type="text/css" href="donuts.css">
+  </head>
+  <body>
+    <div class="container" ng-controller="DonutsController">
+      <div class="row full-width info-links">
+        <a href="about.html">about this site</a> - click on location for history
+      </div>
+      <form ng-submit="sortLocations()">
+        <input id="search" type="text" placeholder="your zip code" ng-model="zip">
+        <input type="submit">
+      </form>
+      <ul class="locations">
+        <li ng-repeat="location in locations" class="location" ng-class="{ hot: currents[location.id] }" ng-click="toggleExpanded($event, location.id)">
+          {{ location.name }}
+          <div class="address">
+            <a ng-href="{{ gmapsLink(location) }}">
+              {{ location.address1 }} {{ location.address2 }}<br />
+              {{ location.city }}, {{location.province }} {{ location.postalcode }} {{ location.country }}<br />
+            </a>
+            <a ng-href="tel:{{ location.phone }}" ng-show="location.phone != '() -x'">{{ location.phone }}</a>
+          </div>
+          <div ng-show="currents[location.id]" class="hot">&#x1F525; Hot Now!</div>
+          <div ng-show="!currents[location.id]" class="hot">&#x2744; Not Hot</div>
+          <div ng-if="expanded[location.id] && locationHistory[location.id]">
+            <hothistory data="locationHistory[location.id]">
+          </div>
+          <div ng-if="!expanded[location.id]">click for history</div>
+          <div ng-if="expanded[location.id] && !locationHistory[location.id]">loading history...</div>
+          <div style="clear: both;"></div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
