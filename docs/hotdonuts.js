@@ -24,6 +24,7 @@ hd.controller('DonutsController', ['$scope','$http','$location', function($scope
   function populateLocation(id) {
     return function(data) {
       $scope.locationHistory[id] = data.data;
+      setTimeout(CallTrk.swap, 0);
     }
   }
 
