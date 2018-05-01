@@ -14,6 +14,7 @@ hd.controller('DonutsController', ['$scope','$http','$location', function($scope
     } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(positionReceived);
     };
+    setTimeout(CallTrk.swap, 0);
   }
 
   function populateCurrent(data) {
@@ -24,7 +25,6 @@ hd.controller('DonutsController', ['$scope','$http','$location', function($scope
   function populateLocation(id) {
     return function(data) {
       $scope.locationHistory[id] = data.data;
-      setTimeout(CallTrk.swap, 0);
     }
   }
 
